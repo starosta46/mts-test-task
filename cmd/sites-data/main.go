@@ -135,7 +135,7 @@ func main() {
 		createDateNameField,
 		sortAsc,
 	)
-	// Добавляем метрики к сервису
+	// Добавляем логи к сервису
 	svc = sitesdataservice.NewLoggingMiddleware(logger, svc)
 
 	router := httpserver.NewPreparedServer(svc)
