@@ -27,7 +27,8 @@ COPY ./internal ./internal
 ARG VERSION=dev
 ARG BINARY_NAME
 
-RUN golangci-lint run --fast ./...
+RUN golangci-lint run -E gofmt -E golint -E vet -E goimports
+RUN go test -v ./...
 RUN go build -v \
     -o /out/service \
     -ldflags "-extldflags "-static" -X main.serviceVersion=$VERSION" \

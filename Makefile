@@ -19,5 +19,6 @@ build: Dockerfile
 		-t $(IMAGE_NAME) .
 
 lint:
-	golangci-lint run ./...
+	golangci-lint run -E gofmt -E golint -E vet -E goimports
+	go test -v ./...
 

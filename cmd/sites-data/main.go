@@ -56,10 +56,10 @@ type configuration struct {
 
 	// Настройки mongodb
 	SitesDataMongoCollection string        `envconfig:"SITES_DATA_MONGO_COLLECTION" default:"sites"`
-	MongoAddr                []string      `envconfig:"MONGO_ADDR" default:"127.0.0.1:27017"`
-	MongoDBName              string        `envconfig:"MONGO_DB_NAME" default:"sites"`
-	MongoDBUser              string        `envconfig:"MONGO_DB_USER" default:"root"`
-	MongoDBPass              string        `envconfig:"MONGO_DB_PASS" default:"rootpassword"`
+	SitesDataMongoAddr       []string      `envconfig:"MONGO_ADDR" default:"127.0.0.1:27017"`
+	SitesDataMongoName       string        `envconfig:"SITES_DATA_MONGO_NAME" default:"sites"`
+	SitesDataMongoUser       string        `envconfig:"SITES_DATA_MONGO_USER" default:"root"`
+	SitesDataMongoPass       string        `envconfig:"SITES_DATA_MONGO_PASS" default:"rootpassword"`
 	SitesDataMongoTimeout    time.Duration `envconfig:"SITES_DATA_MONGO_TIMEOUT" default:"1000ms"`
 }
 
@@ -89,10 +89,10 @@ func main() {
 
 	sitesDataMongoClientOptions := options.ClientOptions{
 		Auth: &options.Credential{
-			Username: cfg.MongoDBUser,
-			Password: cfg.MongoDBPass,
+			Username: cfg.SitesDataMongoUser,
+			Password: cfg.SitesDataMongoPass,
 		},
-		Hosts: cfg.MongoAddr,
+		Hosts: cfg.SitesDataMongoAddr,
 	}
 	sitesDataMongoClient, err := mongo.Connect(ctxTimeout, &sitesDataMongoClientOptions)
 	if err != nil {
@@ -114,7 +114,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	sitesDataMongoClientDB := sitesDataMongoClient.Database(cfg.MongoDBName)
+	sitesDataMongoClientDB := sitesDataMongoClient.Database(cfg.SitesDataMongoName)
 	sitesDataMongoWrapper := wrapper.NewSitesDataWrapper(
 		sitesDataMongoClientDB,
 		cfg.SitesDataMongoCollection,

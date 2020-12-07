@@ -2,7 +2,7 @@ package converter
 
 import "github.com/mts-test-task/internal/storages/mongodb/models"
 
-//SitesData convert side data to map
+// SitesData convert side data to map
 type SitesData interface {
 	SitesDataToMap(sitesData []*models.SiteData) (sitesDataMap map[string]*models.SiteData)
 }
@@ -18,7 +18,7 @@ func (s *sitesData) SitesDataToMap(sitesData []*models.SiteData) (sitesDataMap m
 	return
 }
 
-//NewSitesData ...
+// NewSitesData ...
 func NewSitesData() SitesData {
 	return &sitesData{}
 }
